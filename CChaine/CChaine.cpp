@@ -1,7 +1,7 @@
 #include "CChaine.h"
 
 CChaine::CChaine(const char* chaine) {
-	// TODO - implement CChaine::CChaine
+	cout << "je suis dans le constructeur"<< endl;
 	//determination de la taille de la chaine
 	m_uiSize = 0;
 	unsigned int i = 0;
@@ -9,30 +9,87 @@ CChaine::CChaine(const char* chaine) {
 	{
 		m_uiSize++;
 	}
-	m_strCChaine = 0;
 
 	// m_uiSize = strlen(chaine);
+
+	m_strCChaine = new char[m_uiSize]; // on alloue m_uiSize caractére 
+									// depuis le tas (heap)
+	// on copie tous les caractére de "chaine" dans le heap
+	for (int i = 0; i < m_uiSize; i++)
+	{
+		m_strCChaine[i] = chaine[i];
+	}
+
 }
+// constructeur copie : 
+CChaine::CChaine(const CChaine& obj2)
+{
+	cout << "je suis dans le constructeur de copie" << endl;
+	// on recopie "Tout ce qui fonctionne" 
+	this->m_uiSize = obj2.m_uiSize;
+	// allocation mémoire
+	m_strCChaine = new char[m_uiSize]; // on alloue m_uiSize caractére 
+									// depuis le tas (heap)
+	// on copie tous les caractére de "chaine" dans le heap
+	for (int i = 0; i < m_uiSize; i++)
+	{
+		m_strCChaine[i] = obj2.m_strCChaine[i];
+	}
+	//recopie la chaine
+}
+
+CChaine::CChaine()
+{
+	cout << "je suis un constructeur vide" << endl;
+	this->m_strCChaine=nullptr;
+	this->m_uiSize = 0;
+}
+
+void CChaine::operator=(const CChaine&chaine7)
+{
+	// 1. -- On affecte "Tout ce qui va bie" --
+	this->m_uiSize = chaine7.m_uiSize;
+	// 2. -- Allocation --
+	m_strCChaine = new char[m_uiSize];
+	// 3. -- Recopier la chaine --
+	for (int i = 0; i < m_uiSize; i++)
+	{
+		m_strCChaine[i] = chaine7.m_strCChaine[i];
+	}
+	return;
+}
+
 
 int CChaine::getLen() {
 	// TODO - implement CChaine::getLen
 	return m_uiSize;
-	throw "Not yet implemented";
 }
 
 void CChaine::show() {
-	// TODO - implement CChaine::show
-	throw "Not yet implemented";
+	for (int i = 0; i < m_uiSize; i++)
+	{
+		cout << m_strCChaine[i];
+	}
+	cout << endl;
 }
 
 void CChaine::upper() {
-	// TODO - implement CChaine::upper
-	throw "Not yet implemented";
+	for (int t = 0; t < m_uiSize; t++)
+	{ 
+	if (m_strCChaine[t] >= 'a'&& m_strCChaine[t]<='z')
+	{
+		m_strCChaine[t] = m_strCChaine[t] - ('a' - 'A');// 32;
+	}
+	}
 }
 
 CChaine::~CChaine() {
-	// TODO - implement CChaine::~CChaine
-	throw "Not yet implemented";
+	cout << "je suis dans le déstructeur" << endl;
+	if (m_strCChaine != nullptr)
+	{
+		delete[] this->m_strCChaine;
+	}
+
 }
 
 
