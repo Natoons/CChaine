@@ -17,10 +17,11 @@ public:
 	CChaine(const CChaine&);
 	//CChaine(const CChaine&chaine8,);
 	CChaine();
-	void operator=(const CChaine&);
-	int getLen();
+	// void operator=(const CChaine&);
+	const CChaine& operator=(const CChaine&);
+	int getLen()const;
 
-	void show();
+	void show()const;
 
 	void upper();
 

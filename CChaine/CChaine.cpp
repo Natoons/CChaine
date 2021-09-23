@@ -2,7 +2,7 @@
 
 CChaine::CChaine(const char* chaine) {
 	cout << "je suis dans le constructeur"<< endl;
-	//determination de la taille de la chaine
+	// determination de la taille de la chaine
 	m_uiSize = 0;
 	unsigned int i = 0;
 	while (chaine[m_uiSize] != '\0')
@@ -13,13 +13,12 @@ CChaine::CChaine(const char* chaine) {
 	// m_uiSize = strlen(chaine);
 
 	m_strCChaine = new char[m_uiSize]; // on alloue m_uiSize caractére 
-									// depuis le tas (heap)
+									// depuis le tas (heap)	
 	// on copie tous les caractére de "chaine" dans le heap
 	for (int i = 0; i < m_uiSize; i++)
 	{
 		m_strCChaine[i] = chaine[i];
 	}
-
 }
 // constructeur copie : 
 CChaine::CChaine(const CChaine& obj2)
@@ -45,7 +44,7 @@ CChaine::CChaine()
 	this->m_uiSize = 0;
 }
 
-void CChaine::operator=(const CChaine&chaine7)
+/* void CChaine::operator=(const CChaine& chaine7)
 {
 	// 1. -- On affecte "Tout ce qui va bie" --
 	this->m_uiSize = chaine7.m_uiSize;
@@ -56,16 +55,43 @@ void CChaine::operator=(const CChaine&chaine7)
 	{
 		m_strCChaine[i] = chaine7.m_strCChaine[i];
 	}
-	return;
+}*/
+
+
+const CChaine& CChaine::operator=(const CChaine& chaine7)
+{
+	if (this != &chaine7) // on compare les 2 objets si ils ont le même adresse. 
+	{ 
+		// 1. -- On affecte "Tout ce qui va bie" --
+		this->m_uiSize = chaine7.m_uiSize;
+		// 2. -- Allocation --
+		if (this->m_strCChaine != nullptr)
+		{
+			delete[] this->m_strCChaine;
+		}
+		m_strCChaine = new char[m_uiSize];
+		// 3. -- Recopier la chaine --
+		for (int i = 0; i < m_uiSize; i++)
+		{
+			m_strCChaine[i] = chaine7.m_strCChaine[i];
+		}
+	}
+	return *this;
 }
 
-
-int CChaine::getLen() {
+int CChaine::getLen() const
+{
 	// TODO - implement CChaine::getLen
 	return m_uiSize;
 }
 
-void CChaine::show() {
+/*int CChaine::getLen() {
+	// TODO - implement CChaine::getLen
+	return m_uiSize;
+}*/
+
+void CChaine::show() const
+{
 	for (int i = 0; i < m_uiSize; i++)
 	{
 		cout << m_strCChaine[i];
@@ -73,6 +99,14 @@ void CChaine::show() {
 	cout << endl;
 }
 
+
+/*void CChaine::show() {
+	for (int i = 0; i < m_uiSize; i++)
+	{
+		cout << m_strCChaine[i];
+	}
+	cout << endl;
+}*/
 void CChaine::upper() {
 	for (int t = 0; t < m_uiSize; t++)
 	{ 
