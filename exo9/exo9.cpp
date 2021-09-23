@@ -8,7 +8,9 @@ void main()
 {
 	CChaine ligne1 = "Message 1";
 	const CChaine ligne2 = ligne1;
-	ligne1 = ligne1; ligne1.show(); ligne2.show();
+	ligne1 = ligne1; 
+	ligne1.show(); 
+	ligne2.show();
 	cout << "longueurchaine:" << ligne2.getLen() << endl;
 }
 
